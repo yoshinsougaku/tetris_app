@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'TETRIS',
+      title: 'TETRISuu',
       home: Scaffold(
         body: Center(
           child: CustomPaint(
