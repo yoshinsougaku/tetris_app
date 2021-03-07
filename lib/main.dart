@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'TETRISuu',
+      title: 'TETRIS',
       home: Scaffold(
         body: Center(
           child: CustomPaint(
@@ -29,7 +29,6 @@ class Mino extends CustomPainter {
     paint.color = Colors.red;
     canvas.drawRect(Rect.fromLTWH(0,0,90,30), paint);
     canvas.drawRect(Rect.fromLTWH(30,-30,30,45), paint);
-
   }
 
   @override
