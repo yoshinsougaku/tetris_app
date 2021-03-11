@@ -10,12 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'TETRIS',
-      home: Scaffold(
-        body: CustomPaint(
-          size: Size(100,100),
-          painter: Mino(),
-        )
-      ),
+      home: MainPage()
     );
   }
 }
@@ -23,40 +18,81 @@ class MyApp extends StatelessWidget {
 class Mino extends CustomPainter {
   double baseL = 30;
   double baseP = 10;
+
+  void tPaintCell(Canvas canvas,Paint paint,double x,double y,){
+    canvas.drawRect(Rect.fromLTWH(x*baseL,y*baseL,baseL,baseL), paint);
+    canvas.drawRect(Rect.fromLTWH(x*baseL,y*baseL-baseL,baseL,baseL), paint);
+    canvas.drawRect(Rect.fromLTWH(x*baseL-baseL,y*baseL,baseL,baseL), paint);
+    canvas.drawRect(Rect.fromLTWH(x*baseL+baseL,y*baseL,baseL,baseL), paint);
+  }
+
+  void oPaintCell(Canvas canvas,Paint paint,double x,double y){
+    canvas.drawRect(Rect.fromLTWH(x*baseL,y*baseL,baseL,baseL), paint);
+    canvas.drawRect(Rect.fromLTWH(x*baseL-baseL,y*baseL,baseL,baseL), paint);
+    canvas.drawRect(Rect.fromLTWH(x*baseL,y*baseL-baseL,baseL,baseL), paint);
+    canvas.drawRect(Rect.fromLTWH(x*baseL-baseL,y*baseL-baseL,baseL,baseL), paint);
+  }
+
+  void zPaintCell(Canvas canvas,Paint paint,double x,double y){
+    canvas.drawRect(Rect.fromLTWH(x*baseL,y*baseL,baseL,baseL), paint);
+    canvas.drawRect(Rect.fromLTWH(x*baseL+baseL,y*baseL,baseL,baseL), paint);
+    canvas.drawRect(Rect.fromLTWH(x*baseL+baseL,y*baseL+baseL,baseL,baseL), paint);
+    canvas.drawRect(Rect.fromLTWH(x*baseL+baseL+baseL,y*baseL+baseL,baseL,baseL), paint);
+  }
+
+  void iPaintCell(Canvas canvas,Paint paint,double x,double y){
+    canvas.drawRect(Rect.fromLTWH(x*baseL,y*baseL,baseL,baseL), paint);
+    canvas.drawRect(Rect.fromLTWH(x*baseL+baseL,y*baseL,baseL,baseL), paint);
+    canvas.drawRect(Rect.fromLTWH(x*baseL+baseL+baseL,y*baseL,baseL,baseL), paint);
+    canvas.drawRect(Rect.fromLTWH(x*baseL+baseL+baseL+baseL,y*baseL,baseL,baseL), paint);
+  }
+
+  void lPaintCell(Canvas canvas,Paint paint,double x,double y){
+    canvas.drawRect(Rect.fromLTWH(x*baseL+baseL,y*baseL-baseL,baseL,baseL), paint);
+    canvas.drawRect(Rect.fromLTWH(x*baseL+baseL,y*baseL,baseL,baseL), paint);
+    canvas.drawRect(Rect.fromLTWH(x*baseL+baseL+baseL,y*baseL,baseL,baseL), paint);
+    canvas.drawRect(Rect.fromLTWH(x*baseL+baseL+baseL+baseL,y*baseL,baseL,baseL), paint);
+  }
+
 @override
-  void paint(Canvas canvas, Size size) {
+  void paint(Canvas canvas, Size size,) {
     Paint paint = Paint();
     paint.color = Colors.red;
-    //T
-    canvas.drawRect(Rect.fromLTWH(220,450,baseL,baseL), paint);
-    canvas.drawRect(Rect.fromLTWH(220-baseL,450,baseL,baseL), paint);
-    canvas.drawRect(Rect.fromLTWH(220+baseL,450,baseL,baseL), paint);
-    canvas.drawRect(Rect.fromLTWH(220,450-baseL,baseL,baseL), paint);
-//sikaku
-    canvas.drawRect(Rect.fromLTWH(120,450,baseL,baseL), paint);
-    canvas.drawRect(Rect.fromLTWH(120-baseL,450,baseL,baseL), paint);
-    canvas.drawRect(Rect.fromLTWH(120,450-baseL,baseL,baseL), paint);
-    canvas.drawRect(Rect.fromLTWH(120-baseL,450-baseL,baseL,baseL), paint);
-//tyokusenn
-  canvas.drawRect(Rect.fromLTWH(220,250,baseL,baseL), paint);
-  canvas.drawRect(Rect.fromLTWH(220+baseL,250,baseL,baseL), paint);
-  canvas.drawRect(Rect.fromLTWH(220+baseL+baseL,250,baseL,baseL), paint);
-  canvas.drawRect(Rect.fromLTWH(220+baseL+baseL+baseL,250,baseL,baseL), paint);
-//naname
-  canvas.drawRect(Rect.fromLTWH(220,650,baseL,baseL), paint);
-  canvas.drawRect(Rect.fromLTWH(220+baseL,650,baseL,baseL), paint);
-  canvas.drawRect(Rect.fromLTWH(220+baseL,650+baseL,baseL,baseL), paint);
-  canvas.drawRect(Rect.fromLTWH(220+baseL+baseL,650+baseL,baseL,baseL), paint);
 
-//yoko3
-  canvas.drawRect(Rect.fromLTWH(320,550,baseL,baseL), paint);
-  canvas.drawRect(Rect.fromLTWH(320+baseL,550,baseL,baseL), paint);
-  canvas.drawRect(Rect.fromLTWH(320+baseL+baseL,550,baseL,baseL), paint);
-  canvas.drawRect(Rect.fromLTWH(320+baseL+baseL,550-baseL,baseL,baseL), paint);
+    tPaintCell(canvas, paint, 2, 10);
+    oPaintCell(canvas, paint, 5, 3);
+    zPaintCell(canvas, paint, 8, 8);
+    iPaintCell(canvas, paint, 4, 12);
+    lPaintCell(canvas, paint, 6, 15);
 }
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
     return true;
   }
+}
+
+class MainPage extends StatefulWidget {
+  MainPage({Key key, this.title}) : super(key: key);
+  final String title;
+
+  @override
+  _MainPageState createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  int start = 10;
+  int current = 10;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: CustomPaint(
+          size: Size(100,100),
+          painter: Mino(),
+        ),
+    );
+  }
+
 }
